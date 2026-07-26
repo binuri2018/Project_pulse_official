@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   FaWhatsapp,
-  FaLinkedinIn,
+  FaFacebookF,
   FaInstagram,
   FaEnvelope,
 } from 'react-icons/fa6'
 import {
-  HiArrowRight,
   HiOutlineBolt,
   HiOutlineChatBubbleLeftRight,
   HiOutlineClock,
@@ -47,33 +46,34 @@ const FONT_UI = "'Outfit', system-ui, sans-serif"
 const FONT_SERIF = "'Fraunces', Georgia, 'Times New Roman', serif"
 
 const theme = {
-  pageBg: '#f2ede6',
-  cream: '#fffcf8',
-  sand: '#e4dcd1',
-  ink: '#141210',
-  inkSoft: '#2a2622',
-  muted: '#5c5650',
-  mutedLight: '#8a847c',
-  line: 'rgba(20, 18, 16, 0.12)',
-  lineSoft: 'rgba(20, 18, 16, 0.07)',
-  rust: '#8b3a1a',
-  rustSoft: 'rgba(139, 58, 26, 0.12)',
-  navy: '#1a2f4a',
-  navyDeep: '#0f1a2c',
-  gold: '#b8860b',
-  goldSoft: 'rgba(184, 134, 11, 0.2)',
+  pageBg: '#0d1827',
+  cream: '#142337',
+  sand: '#101f31',
+  ink: '#edf4fc',
+  inkSoft: '#d4e0ed',
+  muted: '#a8bbcf',
+  mutedLight: '#7f96af',
+  line: 'rgba(190, 211, 234, 0.18)',
+  lineSoft: 'rgba(190, 211, 234, 0.10)',
+  rust: '#e38b63',
+  rustSoft: 'rgba(227, 139, 99, 0.14)',
+  navy: '#5f91c8',
+  navyDeep: '#081423',
+  gold: '#e2b857',
+  goldSoft: 'rgba(226, 184, 87, 0.24)',
   heroBg:
-    'radial-gradient(900px 480px at 12% -8%, rgba(139, 58, 26, 0.09), transparent), radial-gradient(700px 380px at 92% 8%, rgba(26, 47, 74, 0.11), transparent), linear-gradient(168deg, #faf6f0 0%, #efe8de 45%, #e3d9cc 100%)',
-  navyCard: 'linear-gradient(152deg, #1a2f4a 0%, #152438 45%, #0f1a2c 100%)',
-  processBg: '#0f141c',
-  processCard: 'rgba(255, 252, 248, 0.06)',
-  processBorder: 'rgba(212, 196, 176, 0.14)',
+    'radial-gradient(900px 480px at 12% -8%, rgba(227, 139, 99, 0.18), transparent), radial-gradient(700px 380px at 92% 8%, rgba(95, 145, 200, 0.20), transparent), linear-gradient(168deg, #0c1929 0%, #10233a 48%, #0d1b2c 100%)',
+  navyCard: 'linear-gradient(152deg, #19395a 0%, #102944 48%, #091727 100%)',
+  processBg: '#091321',
+  processCard: 'rgba(190, 211, 234, 0.07)',
+  processBorder: 'rgba(190, 211, 234, 0.16)',
+  processLine: 'rgba(226, 184, 87, 0.48)',
   ctaMesh:
-    'radial-gradient(700px 360px at 20% 40%, rgba(184, 134, 11, 0.18), transparent), radial-gradient(600px 320px at 85% 60%, rgba(26, 47, 74, 0.45), transparent), linear-gradient(118deg, #0f141c 0%, #1a2f4a 42%, #1f120c 100%)',
-  footerBg: '#080a0e',
-  testimonialBg: 'linear-gradient(145deg, #fff9f2 0%, #f2ebe2 100%)',
-  shadowCard: '0 20px 50px rgba(20, 18, 16, 0.07)',
-  shadowLift: '0 28px 70px rgba(20, 18, 16, 0.12)',
+    'radial-gradient(700px 360px at 20% 40%, rgba(226, 184, 87, 0.20), transparent), radial-gradient(600px 320px at 85% 60%, rgba(95, 145, 200, 0.32), transparent), linear-gradient(118deg, #091321 0%, #153657 48%, #162113 100%)',
+  footerBg: '#060d17',
+  testimonialBg: 'linear-gradient(145deg, #19304a 0%, #10243a 100%)',
+  shadowCard: '0 20px 50px rgba(0, 0, 0, 0.22)',
+  shadowLift: '0 28px 70px rgba(0, 0, 0, 0.30)',
   radiusLg: 20,
   radiusMd: 14,
   radiusSm: 10,
@@ -293,10 +293,26 @@ const embeddedCss = `
   0% { background-position: 0% 50%; }
   100% { background-position: 200% 50%; }
 }
+@keyframes pp-orbit {
+  from { transform: rotate(0deg) translateX(92px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(92px) rotate(-360deg); }
+}
+@keyframes pp-pulse-ring {
+  0%, 100% { transform: scale(0.94); opacity: 0.22; }
+  50% { transform: scale(1.08); opacity: 0.5; }
+}
+@keyframes pp-gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes pp-card-drift {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+}
 .pp-hero-grid {
   background-image:
-    linear-gradient(rgba(20, 18, 16, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(20, 18, 16, 0.035) 1px, transparent 1px);
+    linear-gradient(rgba(220, 235, 250, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220, 235, 250, 0.07) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: radial-gradient(ellipse 85% 75% at 50% -5%, black 35%, transparent 75%);
 }
@@ -309,19 +325,173 @@ const embeddedCss = `
   opacity: 0.35;
   pointer-events: none;
 }
+.pp-orbit {
+  position: absolute;
+  right: clamp(1rem, 8vw, 8rem);
+  top: clamp(7rem, 16vw, 10rem);
+  width: 188px;
+  height: 188px;
+  border: 1px solid rgba(226, 184, 87, 0.22);
+  border-radius: 50%;
+  animation: pp-pulse-ring 5s ease-in-out infinite;
+  pointer-events: none;
+}
+.pp-orbit::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #e2b857;
+  box-shadow: 0 0 0 7px rgba(226, 184, 87, 0.12), 0 0 28px rgba(226, 184, 87, 0.85);
+  animation: pp-orbit 11s linear infinite;
+}
+.pp-hero-content { max-width: 580px; }
+.pp-portal-scene {
+  position: absolute;
+  z-index: 1;
+  width: min(39vw, 470px);
+  height: 590px;
+  right: clamp(1rem, 7vw, 7rem);
+  top: 115px;
+  pointer-events: none;
+  animation: pp-fade-up 0.9s ease 0.18s both;
+}
+.pp-portal {
+  position: absolute;
+  right: 14%;
+  top: 3%;
+  width: 63%;
+  height: 73%;
+  border: 3px solid rgba(230, 213, 255, 0.85);
+  border-radius: 48% 48% 42% 42% / 18% 18% 13% 13%;
+  background:
+    radial-gradient(circle at 45% 76%, rgba(255, 187, 140, 0.80) 0 2%, transparent 10%),
+    radial-gradient(ellipse at 58% 74%, rgba(170, 111, 255, 0.55), transparent 36%),
+    linear-gradient(165deg, rgba(71, 45, 133, 0.96), rgba(23, 62, 104, 0.96) 55%, rgba(15, 34, 64, 0.98));
+  box-shadow: 0 0 0 9px rgba(187, 135, 255, 0.10), 0 0 70px rgba(175, 117, 255, 0.52), inset 0 0 45px rgba(255, 209, 177, 0.22);
+  overflow: hidden;
+}
+.pp-portal-image {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 52% 48%;
+  opacity: 0.82;
+  filter: saturate(0.9) contrast(1.08) brightness(0.76);
+}
+.pp-portal::before {
+  content: '';
+  position: absolute;
+  inset: 45% -10% -2%;
+  background: linear-gradient(160deg, transparent 0 36%, rgba(234, 195, 255, 0.24) 37% 39%, transparent 40% 55%, rgba(255, 204, 165, 0.22) 56% 58%, transparent 59%);
+  transform: skewY(-9deg);
+  z-index: 2;
+}
+.pp-portal::after {
+  content: '';
+  position: absolute;
+  width: 106%;
+  height: 65px;
+  left: -3%;
+  bottom: -30px;
+  border-radius: 50%;
+  background: rgba(238, 211, 255, 0.35);
+  filter: blur(8px);
+  z-index: 2;
+}
+.pp-portal-step {
+  position: absolute;
+  right: 0;
+  bottom: 3%;
+  width: 80%;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(221, 202, 252, 0.72), rgba(95, 76, 146, 0.54));
+  box-shadow: 0 22px 0 -4px rgba(158, 128, 214, 0.34), 0 44px 0 -10px rgba(132, 104, 183, 0.25), 0 32px 40px rgba(0, 0, 0, 0.35);
+}
+.pp-float-card {
+  position: absolute;
+  z-index: 2;
+  min-width: 170px;
+  padding: 16px 18px;
+  color: #edf4fc;
+  border: 1px solid rgba(226, 220, 255, 0.28);
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(36, 51, 86, 0.76), rgba(21, 35, 59, 0.62));
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28), inset 0 1px rgba(255,255,255,0.11);
+  backdrop-filter: blur(13px);
+  animation: pp-card-drift 6s ease-in-out infinite;
+}
+.pp-float-card strong { display: block; font-size: 1.75rem; line-height: 1; margin-top: 8px; letter-spacing: -0.06em; }
+.pp-float-card small { color: #b8c8db; font-weight: 600; }
+.pp-float-card.one { top: 18%; left: -4%; }
+.pp-float-card.two { right: -5%; top: 22%; animation-delay: -2s; }
+.pp-float-card.three { bottom: 18%; left: -7%; animation-delay: -4s; }
+.pp-showcase-image {
+  position: relative;
+  height: clamp(250px, 34vw, 390px);
+  margin: 0 0 24px;
+  overflow: hidden;
+  border: 1px solid rgba(220, 227, 255, 0.24);
+  border-radius: 24px;
+  background: #101d32;
+  box-shadow: 0 28px 65px rgba(0, 0, 0, 0.28);
+}
+.pp-showcase-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 48%;
+  filter: saturate(0.72) contrast(1.04) brightness(0.62);
+  transform: scale(1.025);
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease;
+}
+.pp-showcase-image:hover img { transform: scale(1.07); filter: saturate(0.9) contrast(1.06) brightness(0.72); }
+.pp-showcase-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(8, 18, 33, 0.74), rgba(8, 18, 33, 0.14) 68%), linear-gradient(0deg, rgba(8, 18, 33, 0.55), transparent 46%);
+  pointer-events: none;
+}
+.pp-showcase-label {
+  position: absolute;
+  z-index: 1;
+  left: clamp(1.25rem, 4vw, 2.5rem);
+  bottom: clamp(1.25rem, 4vw, 2.25rem);
+  max-width: 390px;
+}
+.pp-section-reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pp-section-reveal.is-visible { opacity: 1; transform: translateY(0); }
+.pp-section-reveal.is-visible .pp-card-hover { animation: pp-fade-up 0.55s ease both; }
+.pp-section-reveal.is-visible .pp-card-hover:nth-child(2) { animation-delay: 0.08s; }
+.pp-section-reveal.is-visible .pp-card-hover:nth-child(3) { animation-delay: 0.16s; }
+.pp-section-reveal.is-visible .pp-card-hover:nth-child(4) { animation-delay: 0.24s; }
 .pp-card-hover {
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.35s ease;
 }
 .pp-card-hover:hover {
   transform: translateY(-5px);
-  box-shadow: 0 28px 72px rgba(20, 18, 16, 0.11);
-  border-color: rgba(184, 134, 11, 0.35);
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.32);
+  border-color: rgba(226, 184, 87, 0.52);
 }
 .pp-btn {
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease, filter 0.2s ease;
 }
 .pp-btn:hover {
   transform: translateY(-2px);
+  filter: brightness(1.08);
 }
 .pp-btn:active {
   transform: translateY(0);
@@ -333,9 +503,31 @@ const embeddedCss = `
   transform: scale(1.07);
   box-shadow: 0 18px 48px rgba(21, 128, 61, 0.5);
 }
+.pp-eyebrow-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+.pp-eyebrow-accent::before {
+  content: '';
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  box-shadow: 30px 0 0 -0.5px currentColor;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .pp-section-reveal { opacity: 1; transform: none; }
+}
 @media (max-width: 960px) {
   .pp-nav-links { display: none !important; }
   .pp-mobile-toggle { display: flex !important; }
+  .pp-portal-scene { opacity: 0.42; right: -5rem; }
+}
+@media (max-width: 700px) {
+  .pp-portal-scene { display: none; }
+  .pp-hero-content { max-width: none; }
 }
 @media (min-width: 961px) {
   .pp-mobile-toggle { display: none !important; }
@@ -365,6 +557,23 @@ export default function App() {
     return () => clearInterval(id)
   }, [])
 
+  useEffect(() => {
+    const sections = document.querySelectorAll('.pp-section-reveal')
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.12 },
+    )
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [])
+
   const scrollTo = useCallback((id) => {
     setMenuOpen(false)
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -384,7 +593,7 @@ export default function App() {
   const sectionWrap = {
     maxWidth: 1140,
     margin: '0 auto',
-    padding: 'clamp(3.25rem, 7vw, 6rem) clamp(1.25rem, 4vw, 2rem)',
+    padding: 'clamp(2.5rem, 5vw, 4.5rem) clamp(1.25rem, 4vw, 2rem)',
   }
 
   const eyebrow = {
@@ -429,11 +638,11 @@ export default function App() {
             right: 0,
             zIndex: 50,
             transition: 'background 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease',
-            background: scrolled ? 'rgba(255, 252, 248, 0.9)' : 'rgba(255, 252, 248, 0.72)',
+            background: scrolled ? 'rgba(8, 20, 35, 0.94)' : 'rgba(8, 20, 35, 0.82)',
             backdropFilter: 'blur(14px)',
             WebkitBackdropFilter: 'blur(14px)',
             borderBottom: scrolled ? `1px solid ${theme.lineSoft}` : '1px solid transparent',
-            boxShadow: scrolled ? '0 12px 40px rgba(20, 18, 16, 0.06)' : 'none',
+            boxShadow: scrolled ? '0 12px 40px rgba(0, 0, 0, 0.28)' : 'none',
           }}
         >
           <div
@@ -567,7 +776,7 @@ export default function App() {
               className="pp-mobile-menu"
               style={{
                 borderTop: `1px solid ${theme.lineSoft}`,
-                background: 'rgba(255, 252, 248, 0.97)',
+                background: 'rgba(8, 20, 35, 0.98)',
                 backdropFilter: 'blur(12px)',
                 padding: '12px 1.25rem 20px',
                 display: 'flex',
@@ -612,10 +821,32 @@ export default function App() {
             }}
           >
             <div className="pp-hero-grid" style={{ position: 'absolute', inset: 0, opacity: 0.85 }} aria-hidden />
-            <div className="pp-glow" style={{ top: '-140px', left: '-5%', background: theme.rust }} aria-hidden />
-            <div className="pp-glow" style={{ top: '20%', right: '-15%', background: theme.navy }} aria-hidden />
+            <div className="pp-glow pp-glow-left" style={{ top: '-140px', left: '-5%', background: theme.rust }} aria-hidden />
+            <div className="pp-glow pp-glow-right" style={{ top: '20%', right: '-15%', background: theme.navy }} aria-hidden />
+            <div className="pp-orbit" aria-hidden />
+            <div className="pp-portal-scene" aria-hidden>
+              <div className="pp-float-card one">
+                <small>On-time delivery</small>
+                <strong>98%</strong>
+                <small>project focus</small>
+              </div>
+              <div className="pp-float-card two">
+                <small>Support access</small>
+                <strong>24/7</strong>
+                <small>when deadlines matter</small>
+              </div>
+              <div className="pp-float-card three">
+                <small>Project journey</small>
+                <strong>500+</strong>
+                <small>deliverables supported</small>
+              </div>
+              <div className="pp-portal">
+                <img className="pp-portal-image" src="/images/coding-workspace.png" alt="" />
+              </div>
+              <div className="pp-portal-step" />
+            </div>
 
-            <div style={{ ...sectionWrap, position: 'relative', zIndex: 1, maxWidth: 1160 }}>
+            <div className="pp-hero-content" style={{ ...sectionWrap, position: 'relative', zIndex: 3, maxWidth: 680, margin: '0 auto 0 0' }}>
               <div
                 style={{
                   display: 'inline-flex',
@@ -645,9 +876,9 @@ export default function App() {
                   fontSize: 'clamp(2.5rem, 5.8vw, 3.85rem)',
                   lineHeight: 1.06,
                   margin: '22px 0 18px',
-                  maxWidth: 920,
+                  maxWidth: 610,
                   letterSpacing: '-0.035em',
-                  color: theme.navyDeep,
+                  color: theme.ink,
                   animation: 'pp-fade-up 0.85s ease 0.06s both',
                 }}
               >
@@ -689,32 +920,6 @@ export default function App() {
                   animation: 'pp-fade-up 0.85s ease 0.18s both',
                 }}
               >
-                <a
-                  href="#contact"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    scrollTo('contact')
-                  }}
-                  className="pp-btn"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 10,
-                    padding: '15px 24px',
-                    borderRadius: theme.radiusMd,
-                    fontWeight: 700,
-                    fontSize: 15,
-                    textDecoration: 'none',
-                    color: theme.cream,
-                    background: `linear-gradient(120deg, ${theme.navy} 0%, ${theme.navyDeep} 55%, #2c1810 100%)`,
-                    backgroundSize: '200% 200%',
-                    animation: 'pp-shimmer 8s ease infinite alternate',
-                    boxShadow: '0 16px 42px rgba(26, 47, 74, 0.32)',
-                  }}
-                >
-                  <span aria-hidden>🚀</span> Get Free Consultation
-                  <HiArrowRight size={18} />
-                </a>
                 <button
                   type="button"
                   className="pp-btn"
@@ -728,13 +933,13 @@ export default function App() {
                     fontWeight: 700,
                     fontSize: 15,
                     cursor: 'pointer',
-                    color: theme.navyDeep,
-                    background: theme.cream,
-                    border: `2px solid ${theme.navy}`,
-                    boxShadow: '0 4px 20px rgba(20,18,16,0.06)',
+                    color: theme.cream,
+                    background: `linear-gradient(135deg, ${theme.navy} 0%, ${theme.navyDeep} 100%)`,
+                    border: '1px solid rgba(220, 235, 250, 0.2)',
+                    boxShadow: '0 12px 32px rgba(26, 47, 74, 0.28)',
                   }}
                 >
-                  <span aria-hidden>📩</span> Submit Your Requirement
+                  <span aria-hidden></span> Submit Your Requirement
                 </button>
                 <a
                   href={WHATSAPP_URL}
@@ -752,12 +957,12 @@ export default function App() {
                     textDecoration: 'none',
                     color: theme.cream,
                     background: 'linear-gradient(135deg, #166534 0%, #15803d 100%)',
-                    border: `1px solid rgba(255,252,248,0.2)`,
+                    border: '1px solid rgba(220, 235, 250, 0.2)',
                     boxShadow: '0 12px 32px rgba(22, 101, 52, 0.28)',
                   }}
                 >
                   <FaWhatsapp size={20} />
-                  <span aria-hidden>💬</span> Chat on WhatsApp
+                  <span aria-hidden></span> Chat on WhatsApp
                 </a>
               </div>
 
@@ -817,7 +1022,7 @@ export default function App() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <HiOutlineUserGroup size={26} color={theme.navy} />
                   <div>
-                    <div style={{ fontWeight: 800, fontSize: 20, color: theme.navyDeep }}>500+</div>
+                    <div style={{ fontWeight: 800, fontSize: 20, color: theme.ink }}>500+</div>
                     <div style={{ fontSize: 12, color: theme.muted, fontWeight: 600 }}>Deliverables supported</div>
                   </div>
                 </div>
@@ -825,7 +1030,7 @@ export default function App() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <MdOutlineSchool size={26} color={theme.rust} />
                   <div>
-                    <div style={{ fontWeight: 800, fontSize: 20, color: theme.navyDeep }}>98%</div>
+                    <div style={{ fontWeight: 800, fontSize: 20, color: theme.ink }}>98%</div>
                     <div style={{ fontSize: 12, color: theme.muted, fontWeight: 600 }}>On-time delivery focus</div>
                   </div>
                 </div>
@@ -843,7 +1048,7 @@ export default function App() {
                         borderRadius: theme.pill,
                         border: `1px solid ${theme.goldSoft}`,
                         color: theme.rust,
-                        background: 'rgba(255, 252, 248, 0.8)',
+                        background: 'rgba(13, 24, 39, 0.82)',
                       }}
                     >
                       {b}
@@ -855,9 +1060,9 @@ export default function App() {
           </section>
 
           {/* About */}
-          <section id="about" style={{ background: theme.sand }}>
+          <section id="about" className="pp-section-reveal" style={{ background: theme.sand }}>
             <div style={sectionWrap}>
-              <div style={eyebrow}>About us</div>
+              <div className="pp-eyebrow-accent" style={eyebrow}>About us</div>
               <h2 style={h2}>We Don’t Just Complete Work — We Build Confidence</h2>
               <p style={{ ...sub, maxWidth: 800, marginBottom: 28 }}>
                 Behind every deadline, there’s pressure. Behind every project, there’s a dream.
@@ -865,6 +1070,13 @@ export default function App() {
                 <br />
                 We understand both.
               </p>
+              <div className="pp-showcase-image">
+                <img src="/images/academic-workspace.png" alt="A focused academic and technology workspace" />
+                <div className="pp-showcase-label">
+                  <div style={{ color: theme.gold, fontSize: 11, fontWeight: 800, letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 8 }}>Built for ambitious work</div>
+                  <div style={{ color: theme.ink, fontFamily: FONT_SERIF, fontSize: 'clamp(1.45rem, 3vw, 2.1rem)', lineHeight: 1.12, fontWeight: 600 }}>Your next deadline deserves a space for focused thinking.</div>
+                </div>
+              </div>
               <div
                 style={{
                   display: 'grid',
@@ -933,9 +1145,9 @@ export default function App() {
           </section>
 
           {/* Services */}
-          <section id="services" style={{ background: `linear-gradient(185deg, ${theme.pageBg} 0%, ${theme.cream} 55%)` }}>
+          <section id="services" className="pp-section-reveal" style={{ background: `linear-gradient(185deg, ${theme.pageBg} 0%, ${theme.cream} 55%)` }}>
             <div style={sectionWrap}>
-              <div style={eyebrow}>Capabilities</div>
+              <div className="pp-eyebrow-accent" style={eyebrow}>Capabilities</div>
               <h2 style={h2}>What We Solve</h2>
               <p style={{ ...sub, maxWidth: 560, marginBottom: 36 }}>
                 We don’t just offer services. We solve stress, deadlines, and uncertainty.
@@ -953,7 +1165,7 @@ export default function App() {
                         gap: 18,
                         padding: '28px 26px',
                         borderRadius: theme.radiusLg,
-                        background: i % 2 === 0 ? theme.cream : 'rgba(255, 252, 248, 0.65)',
+                        background: i % 2 === 0 ? theme.cream : theme.sand,
                         border: `1px solid ${theme.lineSoft}`,
                         boxShadow: theme.shadowCard,
                       }}
@@ -966,7 +1178,7 @@ export default function App() {
                             borderRadius: theme.radiusMd,
                             display: 'grid',
                             placeItems: 'center',
-                            background: `linear-gradient(145deg, ${theme.rustSoft}, rgba(26, 47, 74, 0.1))`,
+                          background: `linear-gradient(145deg, ${theme.rustSoft}, rgba(95, 145, 200, 0.14))`,
                             color: theme.navy,
                             flexShrink: 0,
                             border: `1px solid ${theme.lineSoft}`,
@@ -975,7 +1187,7 @@ export default function App() {
                           <Icon size={28} />
                         </div>
                         <div style={{ flex: 1, minWidth: 220 }}>
-                          <h3 style={{ margin: '0 0 8px', fontSize: '1.22rem', fontWeight: 800, color: theme.navyDeep, fontFamily: FONT_UI }}>{s.title}</h3>
+                          <h3 style={{ margin: '0 0 8px', fontSize: '1.22rem', fontWeight: 800, color: theme.ink, fontFamily: FONT_UI }}>{s.title}</h3>
                           <p style={{ margin: 0, color: theme.muted, fontWeight: 500 }}>{s.tagline}</p>
                         </div>
                       </div>
@@ -1021,9 +1233,9 @@ export default function App() {
           </section>
 
           {/* Why */}
-          <section id="why" style={{ background: theme.cream }}>
+          <section id="why" className="pp-section-reveal" style={{ background: theme.cream }}>
             <div style={sectionWrap}>
-              <div style={eyebrow}>Trust</div>
+              <div className="pp-eyebrow-accent" style={eyebrow}>Trust</div>
               <h2 style={h2}>Why Students Stay With Us</h2>
               <p style={{ ...sub, marginBottom: 36 }}>Anyone can promise delivery. We promise results.</p>
               <div
@@ -1063,7 +1275,7 @@ export default function App() {
                       >
                         <Icon size={24} />
                       </div>
-                      <h3 style={{ margin: '0 0 8px', fontSize: '1.06rem', fontWeight: 800, color: theme.navyDeep }}>{w.title}</h3>
+                      <h3 style={{ margin: '0 0 8px', fontSize: '1.06rem', fontWeight: 800, color: theme.ink }}>{w.title}</h3>
                       <p style={{ margin: 0, fontSize: 14, color: theme.muted, lineHeight: 1.68 }}>{w.body}</p>
                     </div>
                   )
@@ -1073,11 +1285,11 @@ export default function App() {
           </section>
 
           {/* Process */}
-          <section id="process" style={{ background: theme.processBg, color: '#e8e4df' }}>
+          <section id="process" className="pp-section-reveal" style={{ background: theme.processBg, color: '#e8e4df' }}>
             <div style={sectionWrap}>
               <div style={{ ...eyebrow, color: theme.gold, borderBottomColor: 'rgba(184, 134, 11, 0.35)' }}>How it works</div>
-              <h2 style={{ ...h2, color: theme.cream }}>Simple Process. Serious Results.</h2>
-              <p style={{ ...sub, color: '#a8a29e', marginBottom: 40, maxWidth: 520 }}>
+              <h2 style={{ ...h2, color: theme.ink }}>Simple Process. Serious Results.</h2>
+              <p style={{ ...sub, color: theme.inkSoft, marginBottom: 32, maxWidth: 520 }}>
                 A clear path from requirement to delivery — with transparency at every step.
               </p>
               <div style={{ position: 'relative', maxWidth: 800, margin: '0 auto' }}>
@@ -1126,13 +1338,13 @@ export default function App() {
                         style={{
                           padding: '22px 24px',
                           borderRadius: theme.radiusLg,
-                          background: theme.processCard,
+                          background: 'rgba(31, 54, 82, 0.76)',
                           border: `1px solid ${theme.processBorder}`,
                         }}
                       >
-                        <div style={{ fontWeight: 800, fontSize: '1.08rem', marginBottom: 10, color: theme.cream }}>Step {st.n}: {st.title}</div>
+                        <div style={{ fontWeight: 800, fontSize: '1.08rem', marginBottom: 10, color: theme.ink }}>Step {st.n}: {st.title}</div>
                         {st.body.map((para, pi) => (
-                          <p key={`${st.n}-${pi}`} style={{ margin: '0 0 10px', fontSize: 14, color: '#c4bbb0', lineHeight: 1.72 }}>
+                          <p key={`${st.n}-${pi}`} style={{ margin: '0 0 10px', fontSize: 14, color: '#d5e3f1', lineHeight: 1.72 }}>
                             {para}
                           </p>
                         ))}
@@ -1145,9 +1357,9 @@ export default function App() {
           </section>
 
           {/* Testimonials */}
-          <section id="testimonials" style={{ background: theme.cream }}>
+          <section id="testimonials" className="pp-section-reveal" style={{ background: theme.cream }}>
             <div style={sectionWrap}>
-              <div style={eyebrow}>Proof</div>
+              <div className="pp-eyebrow-accent" style={eyebrow}>Proof</div>
               <h2 style={h2}>Real Results. Real Satisfaction.</h2>
               <p style={{ ...sub, marginBottom: 28 }}>Selected feedback from students and professionals we’ve partnered with.</p>
               <div
@@ -1172,7 +1384,7 @@ export default function App() {
                       fontFamily: FONT_SERIF,
                       fontSize: 'clamp(1.32rem, 3vw, 1.78rem)',
                       lineHeight: 1.48,
-                      color: theme.navyDeep,
+                      color: theme.ink,
                       margin: '0 0 18px',
                       fontWeight: 500,
                     }}
@@ -1195,7 +1407,7 @@ export default function App() {
                           borderRadius: 999,
                           border: 'none',
                           cursor: 'pointer',
-                          background: i === tIndex ? theme.navy : 'rgba(26, 47, 74, 0.2)',
+                          background: i === tIndex ? theme.navy : 'rgba(190, 211, 234, 0.22)',
                           transition: 'all 0.25s ease',
                         }}
                       />
@@ -1216,7 +1428,7 @@ export default function App() {
                         cursor: 'pointer',
                         display: 'grid',
                         placeItems: 'center',
-                        color: theme.navyDeep,
+                        color: theme.ink,
                       }}
                     >
                       <HiChevronLeft size={22} />
@@ -1232,7 +1444,7 @@ export default function App() {
                         borderRadius: theme.radiusMd,
                         border: `1px solid ${theme.line}`,
                         background: theme.cream,
-                        color: theme.navyDeep,
+                        color: theme.ink,
                         cursor: 'pointer',
                         display: 'grid',
                         placeItems: 'center',
@@ -1249,6 +1461,7 @@ export default function App() {
           {/* CTA band */}
           <section
             aria-labelledby="cta-title"
+            className="pp-section-reveal"
             style={{
               padding: 'clamp(3.25rem, 7vw, 4.75rem) clamp(1.25rem, 4vw, 2rem)',
               background: theme.ctaMesh,
@@ -1306,7 +1519,7 @@ export default function App() {
                     border: '1px solid rgba(212,196,176,0.35)',
                   }}
                 >
-                  <span aria-hidden>📩</span> Get Free Consultation
+                  <span aria-hidden></span> Get Free Consultation
                 </button>
                 <button
                   type="button"
@@ -1327,16 +1540,16 @@ export default function App() {
                     boxShadow: '0 12px 36px rgba(184, 134, 11, 0.35)',
                   }}
                 >
-                  <span aria-hidden>🚀</span> Submit Your Project Today
+                  <span aria-hidden></span> Submit Your Project Today
                 </button>
               </div>
             </div>
           </section>
 
           {/* Trust message */}
-          <section style={{ background: theme.sand }}>
+          <section className="pp-section-reveal" style={{ background: theme.sand }}>
             <div style={{ ...sectionWrap, textAlign: 'center', maxWidth: 760 }}>
-              <div style={eyebrow}>Our promise</div>
+              <div className="pp-eyebrow-accent" style={eyebrow}>Our promise</div>
               <h2 style={h2}>We Don’t Sell Services. We Deliver Peace of Mind.</h2>
               <p style={{ margin: '0 auto', fontSize: '1.1rem', color: theme.muted, lineHeight: 1.82 }}>
                 Your grades matter. Your projects matter. Your future matters.
@@ -1348,11 +1561,11 @@ export default function App() {
           </section>
 
           {/* Contact */}
-          <section id="contact" style={{ background: theme.cream }}>
+          <section id="contact" className="pp-section-reveal" style={{ background: theme.cream }}>
             <div style={{ ...sectionWrap, maxWidth: 1160 }}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 28, alignItems: 'stretch' }}>
                 <div>
-                  <div style={eyebrow}>Contact</div>
+                  <div className="pp-eyebrow-accent" style={eyebrow}>Contact</div>
                   <h2 style={h2}>Tell us what you’re building</h2>
                   <p style={{ ...sub, maxWidth: 480 }}>
                     Share your brief, deadline, and deliverables. We’ll respond with a structured plan, timeline, and quote — no fluff.
@@ -1365,7 +1578,7 @@ export default function App() {
                         alignItems: 'center',
                         gap: 12,
                         textDecoration: 'none',
-                        color: theme.navyDeep,
+                        color: theme.ink,
                         fontWeight: 700,
                         fontSize: 15,
                       }}
@@ -1532,7 +1745,7 @@ export default function App() {
         </main>
 
         {/* Footer */}
-        <footer style={{ background: theme.footerBg, color: '#a8a29e', padding: '52px clamp(1.25rem, 4vw, 2.5rem) 36px' }}>
+        <footer style={{ background: theme.footerBg, color: '#b9cadc', padding: '44px clamp(1.25rem, 4vw, 2.5rem) 32px' }}>
           <div style={{ maxWidth: 1160, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 32 }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
@@ -1551,14 +1764,14 @@ export default function App() {
                 >
                   <img src={LOGO_SRC} alt="" width={30} height={30} style={{ width: 30, height: 30, objectFit: 'contain', display: 'block' }} />
                 </span>
-                <span style={{ fontWeight: 800, color: theme.cream, fontSize: 16 }}>{BRAND}</span>
+                <span style={{ fontWeight: 800, color: theme.ink, fontSize: 16 }}>{BRAND}</span>
               </div>
-              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.65, maxWidth: 300, color: '#a8a29e' }}>
+              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.65, maxWidth: 300, color: '#b9cadc' }}>
                 Premium academic and IT execution partner for students, researchers, and early-career professionals.
               </p>
             </div>
             <div>
-              <div style={{ fontWeight: 800, color: theme.cream, marginBottom: 12, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Explore</div>
+              <div style={{ fontWeight: 800, color: theme.ink, marginBottom: 12, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Explore</div>
               <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {NAV.filter((n) => n.id !== 'hero').map((n) => (
                   <li key={n.id}>
@@ -1568,7 +1781,7 @@ export default function App() {
                       style={{
                         background: 'none',
                         border: 'none',
-                        color: '#c4bbb0',
+                        color: '#d8e5f3',
                         cursor: 'pointer',
                         padding: 0,
                         fontSize: 14,
@@ -1582,15 +1795,15 @@ export default function App() {
               </ul>
             </div>
             <div>
-              <div style={{ fontWeight: 800, color: theme.cream, marginBottom: 12, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Business</div>
+              <div style={{ fontWeight: 800, color: theme.ink, marginBottom: 12, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Business</div>
               <p style={{ margin: '0 0 8px', fontSize: 14 }}>Registered operations · Remote-first delivery</p>
               <p style={{ margin: 0, fontSize: 14 }}>
-                <a href={`mailto:${EMAIL}`} style={{ color: '#c4bbb0', textDecoration: 'none' }}>
+                <a href={`mailto:${EMAIL}`} style={{ color: '#d8e5f3', textDecoration: 'none' }}>
                   {EMAIL}
                 </a>
               </p>
               <p style={{ margin: '6px 0 0', fontSize: 14 }}>
-                <a href={PHONE_TEL_HREF} style={{ color: '#c4bbb0', textDecoration: 'none' }}>
+                <a href={PHONE_TEL_HREF} style={{ color: '#d8e5f3', textDecoration: 'none' }}>
                   {PHONE_DISPLAY}
                 </a>
                 {' · '}
@@ -1600,12 +1813,12 @@ export default function App() {
               </p>
             </div>
             <div>
-              <div style={{ fontWeight: 800, color: theme.cream, marginBottom: 12, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Social</div>
+              <div style={{ fontWeight: 800, color: theme.ink, marginBottom: 12, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Social</div>
               <div style={{ display: 'flex', gap: 10 }}>
                 {[
                   { Icon: FaWhatsapp, href: WHATSAPP_URL, label: 'WhatsApp' },
-                  { Icon: FaLinkedinIn, href: 'https://linkedin.com', label: 'LinkedIn' },
-                  { Icon: FaInstagram, href: 'https://instagram.com', label: 'Instagram' },
+                  { Icon: FaFacebookF, href: 'https://www.facebook.com/share/1EqqWfruTK/', label: 'Facebook' },
+                  { Icon: FaInstagram, href: 'https://www.instagram.com/project_pulse_01?igsh=MTNjaGRrbDZsbXZ6aA==', label: 'Instagram' },
                   { Icon: FaEnvelope, href: `mailto:${EMAIL}`, label: 'Email' },
                 ].map(({ Icon, href, label }) => (
                   <a
@@ -1619,18 +1832,18 @@ export default function App() {
                       borderRadius: 14,
                       display: 'grid',
                       placeItems: 'center',
-                      background: 'rgba(255,255,255,0.06)',
-                      border: '1px solid rgba(148,140,128,0.25)',
-                      color: theme.cream,
+                      background: 'rgba(112, 147, 194, 0.18)',
+                      border: '1px solid rgba(197, 219, 245, 0.35)',
+                      color: theme.ink,
                       textDecoration: 'none',
                       transition: 'background 0.2s ease, transform 0.2s ease',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'rgba(184, 134, 11, 0.22)'
+                      e.currentTarget.style.background = 'rgba(226, 184, 87, 0.30)'
                       e.currentTarget.style.transform = 'translateY(-2px)'
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'rgba(255,255,255,0.06)'
+                      e.currentTarget.style.background = 'rgba(112, 147, 194, 0.18)'
                       e.currentTarget.style.transform = 'translateY(0)'
                     }}
                   >
