@@ -785,7 +785,7 @@ export default function App() {
                   fontSize: 13,
                   color: '#ffffff',
                   background: `linear-gradient(135deg, ${theme.navy} 0%, ${theme.navyDeep} 100%)`,
-                  boxShadow: '0 8px 26px rgba(26, 47, 74, 0.28)',
+                  boxShadow: '0 0 15px rgba(95, 145, 200, 0.7), 0 0 30px rgba(95, 145, 200, 0.4)',
                 }}
               >
                 Book consult
@@ -985,8 +985,8 @@ export default function App() {
                     cursor: 'pointer',
                     color: '#ffffff',
                     background: `linear-gradient(135deg, ${theme.navy} 0%, ${theme.navyDeep} 100%)`,
-                    border: '1px solid rgba(220, 235, 250, 0.2)',
-                    boxShadow: '0 12px 32px rgba(26, 47, 74, 0.28)',
+                    border: '1px solid #5f91c8',
+                    boxShadow: '0 0 15px rgba(95, 145, 200, 0.7), 0 0 30px rgba(95, 145, 200, 0.4)',
                   }}
                 >
                   <span aria-hidden></span> Submit Your Requirement
