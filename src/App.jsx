@@ -268,15 +268,15 @@ const TESTIMONIALS = [
   {
     quote:
       'Fast, professional, and reliable. My internship report and CV were completed beyond expectations.',
-    name: 'Internship & Career Package',
+    name: 'Internship & Career Client',
   },
   {
     quote: 'Best support I received for software testing reports and QA documentation.',
-    name: 'Software Engineering Track',
+    name: 'Software Engineering Student',
   },
   {
     quote: 'Unlike others, they actually stayed after delivery and helped with corrections.',
-    name: 'Research & Systems Client',
+    name: 'Research Student — IEEE Paper Submission',
   },
 ]
 
