@@ -1499,7 +1499,7 @@ export default function App() {
                     boxShadow: '0 14px 40px rgba(22, 101, 52, 0.35)',
                   }}
                 >
-                  <span aria-hidden>💬</span> Start on WhatsApp
+                  Start on WhatsApp
                 </a>
                 <button
                   type="button"
@@ -1562,183 +1562,84 @@ export default function App() {
 
           {/* Contact */}
           <section id="contact" className="pp-section-reveal" style={{ background: theme.cream }}>
-            <div style={{ ...sectionWrap, maxWidth: 1160 }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 28, alignItems: 'stretch' }}>
-                <div>
-                  <div className="pp-eyebrow-accent" style={eyebrow}>Contact</div>
-                  <h2 style={h2}>Tell us what you’re building</h2>
-                  <p style={{ ...sub, maxWidth: 480 }}>
-                    Share your brief, deadline, and deliverables. We’ll respond with a structured plan, timeline, and quote — no fluff.
-                  </p>
-                  <div style={{ marginTop: 22, display: 'flex', flexDirection: 'column', gap: 12 }}>
-                    <a
-                      href={`mailto:${EMAIL}`}
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: 12,
-                        textDecoration: 'none',
-                        color: theme.ink,
-                        fontWeight: 700,
-                        fontSize: 15,
-                      }}
-                    >
-                      <span
-                        style={{
-                          width: 44,
-                          height: 44,
-                          borderRadius: theme.radiusMd,
-                          display: 'grid',
-                          placeItems: 'center',
-                          background: theme.pageBg,
-                          color: theme.rust,
-                          border: `1px solid ${theme.lineSoft}`,
-                        }}
-                      >
-                        <FaEnvelope />
-                      </span>
-                      {EMAIL}
-                    </a>
-                    <a
-                      href={PHONE_TEL_HREF}
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: 12,
-                        color: theme.inkSoft,
-                        fontWeight: 600,
-                        textDecoration: 'none',
-                      }}
-                    >
-                      <span
-                        style={{
-                          width: 44,
-                          height: 44,
-                          borderRadius: theme.radiusMd,
-                          display: 'grid',
-                          placeItems: 'center',
-                          background: theme.pageBg,
-                          color: theme.navy,
-                          border: `1px solid ${theme.lineSoft}`,
-                        }}
-                      >
-                        <HiOutlineClock size={22} />
-                      </span>
-                      {PHONE_DISPLAY} · WhatsApp / call · Response within hours
-                    </a>
-                  </div>
-                </div>
-                <form
-                  onSubmit={(e) => e.preventDefault()}
+            <div style={{ ...sectionWrap, maxWidth: 680, textAlign: 'center' }}>
+              <div className="pp-eyebrow-accent" style={{ ...eyebrow, margin: '0 auto 14px' }}>Contact</div>
+              <h2 style={{ ...h2, margin: '0 auto 16px' }}>Tell us what you’re building</h2>
+              <p style={{ ...sub, margin: '0 auto 28px', maxWidth: 520 }}>
+                Share your brief, deadline, and deliverables. We’ll respond with a structured plan, timeline, and quote — no fluff.
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 16, marginTop: 22 }}>
+                <a
+                  href={`mailto:${EMAIL}`}
+                  className="pp-card-hover"
                   style={{
-                    padding: '28px 26px',
-                    borderRadius: theme.radiusLg,
-                    background: `linear-gradient(175deg, ${theme.cream} 0%, ${theme.pageBg} 100%)`,
-                    border: `1px solid ${theme.line}`,
-                    boxShadow: theme.shadowLift,
-                    display: 'flex',
-                    flexDirection: 'column',
+                    display: 'inline-flex',
+                    alignItems: 'center',
                     gap: 14,
+                    textDecoration: 'none',
+                    color: theme.ink,
+                    fontWeight: 700,
+                    fontSize: 16,
+                    padding: '16px 24px',
+                    borderRadius: theme.radiusLg,
+                    background: theme.pageBg,
+                    border: `1px solid ${theme.lineSoft}`,
+                    boxShadow: theme.shadowCard,
                   }}
                 >
-                  <div style={{ display: 'grid', gap: 12, gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))' }}>
-                    <label style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12, fontWeight: 700, color: theme.muted }}>
-                      Name
-                      <input
-                        name="name"
-                        placeholder="Your name"
-                        style={{
-                          padding: '12px 14px',
-                          borderRadius: theme.radiusSm,
-                          border: `1px solid ${theme.line}`,
-                          fontSize: 14,
-                          fontFamily: 'inherit',
-                          background: theme.cream,
-                        }}
-                      />
-                    </label>
-                    <label style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12, fontWeight: 700, color: theme.muted }}>
-                      Email
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="you@university.edu"
-                        style={{
-                          padding: '12px 14px',
-                          borderRadius: theme.radiusSm,
-                          border: `1px solid ${theme.line}`,
-                          background: theme.cream,
-                          fontSize: 14,
-                          fontFamily: 'inherit',
-                        }}
-                      />
-                    </label>
+                  <span
+                    style={{
+                      width: 44,
+                      height: 44,
+                      borderRadius: theme.radiusMd,
+                      display: 'grid',
+                      placeItems: 'center',
+                      background: theme.cream,
+                      color: theme.rust,
+                      border: `1px solid ${theme.lineSoft}`,
+                    }}
+                  >
+                    <FaEnvelope size={20} />
+                  </span>
+                  {EMAIL}
+                </a>
+                <a
+                  href={PHONE_TEL_HREF}
+                  className="pp-card-hover"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 14,
+                    color: theme.ink,
+                    fontWeight: 700,
+                    fontSize: 16,
+                    textDecoration: 'none',
+                    padding: '16px 24px',
+                    borderRadius: theme.radiusLg,
+                    background: theme.pageBg,
+                    border: `1px solid ${theme.lineSoft}`,
+                    boxShadow: theme.shadowCard,
+                  }}
+                >
+                  <span
+                    style={{
+                      width: 44,
+                      height: 44,
+                      borderRadius: theme.radiusMd,
+                      display: 'grid',
+                      placeItems: 'center',
+                      background: theme.cream,
+                      color: theme.navy,
+                      border: `1px solid ${theme.lineSoft}`,
+                    }}
+                  >
+                    <FaWhatsapp size={24} style={{ color: '#25D366' }} />
+                  </span>
+                  <div style={{ textAlign: 'left' }}>
+                    <div>{PHONE_DISPLAY}</div>
+                    <div style={{ fontSize: 12, color: theme.muted, fontWeight: 500 }}>WhatsApp / Call · Response within hours</div>
                   </div>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12, fontWeight: 700, color: theme.muted }}>
-                    Requirement summary
-                    <textarea
-                      name="message"
-                      rows={5}
-                      placeholder="Course, tech stack, documentation type, deadline, and any rubric or brief."
-                      style={{
-                        padding: '12px 14px',
-                        borderRadius: theme.radiusSm,
-                        border: `1px solid ${theme.line}`,
-                        fontSize: 14,
-                        resize: 'vertical',
-                        fontFamily: 'inherit',
-                        background: theme.cream,
-                      }}
-                    />
-                  </label>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 4 }}>
-                    <button
-                      type="submit"
-                      className="pp-btn"
-                      style={{
-                        flex: '1 1 180px',
-                        padding: '15px 20px',
-                        borderRadius: theme.radiusMd,
-                        border: 'none',
-                        cursor: 'pointer',
-                        fontWeight: 800,
-                        fontSize: 15,
-                        color: theme.cream,
-                        background: `linear-gradient(135deg, ${theme.navy} 0%, ${theme.navyDeep} 100%)`,
-                        boxShadow: '0 12px 32px rgba(26, 47, 74, 0.28)',
-                      }}
-                    >
-                      Request consultation
-                    </button>
-                    <a
-                      href={WHATSAPP_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="pp-btn"
-                      style={{
-                        flex: '1 1 180px',
-                        textAlign: 'center',
-                        padding: '15px 20px',
-                        borderRadius: theme.radiusMd,
-                        fontWeight: 800,
-                        fontSize: 15,
-                        textDecoration: 'none',
-                        color: theme.cream,
-                        background: 'linear-gradient(135deg, #166534 0%, #14532d 100%)',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: 8,
-                        boxShadow: '0 10px 28px rgba(22, 101, 52, 0.25)',
-                      }}
-                    >
-                      <FaWhatsapp size={20} /> WhatsApp
-                    </a>
-                  </div>
-                  <p style={{ margin: 0, fontSize: 12, color: theme.mutedLight }}>
-                    This form is front-end only — wire it to your backend or form provider. For now, it demonstrates the conversion flow.
-                  </p>
-                </form>
+                </a>
               </div>
             </div>
           </section>
