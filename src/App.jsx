@@ -516,6 +516,10 @@ const embeddedCss = `
   background: currentColor;
   box-shadow: 30px 0 0 -0.5px currentColor;
 }
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   .pp-section-reveal { opacity: 1; transform: none; }
@@ -535,6 +539,47 @@ const embeddedCss = `
 }
 @media (min-width: 720px) {
   .pp-stat-divider { display: block !important; }
+}
+.pp-mobile-menu {
+  animation: pp-slide-down 0.22s ease-out both;
+}
+@keyframes pp-slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 480px) {
+  .pp-hero-ctas {
+    flex-direction: column !important;
+  }
+  .pp-hero-ctas a, .pp-hero-ctas button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  .pp-process-step-box {
+    padding: 16px 18px !important;
+  }
+}
+@media (max-width: 600px) {
+  .pp-cta-buttons {
+    flex-direction: column !important;
+  }
+  .pp-cta-buttons a, .pp-cta-buttons button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  .pp-contact-links {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .pp-contact-links a {
+    width: 100% !important;
+    justify-content: flex-start !important;
+  }
+  .pp-footer-bottom {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 8px !important;
+  }
 }
 `
 
@@ -586,6 +631,7 @@ export default function App() {
       background: theme.pageBg,
       lineHeight: 1.65,
       WebkitFontSmoothing: 'antialiased',
+      overflowX: 'hidden',
     }),
     [],
   )
@@ -676,7 +722,7 @@ export default function App() {
                   width: 46,
                   height: 46,
                   borderRadius: theme.radiusSm,
-                  background: theme.cream,
+                  background: '#ffffff',
                   display: 'grid',
                   placeItems: 'center',
                   boxShadow: `0 0 0 1px ${theme.line}, 0 6px 20px rgba(20,18,16,0.06)`,
@@ -737,7 +783,7 @@ export default function App() {
                   padding: '10px 20px',
                   fontWeight: 700,
                   fontSize: 13,
-                  color: theme.cream,
+                  color: '#ffffff',
                   background: `linear-gradient(135deg, ${theme.navy} 0%, ${theme.navyDeep} 100%)`,
                   boxShadow: '0 8px 26px rgba(26, 47, 74, 0.28)',
                 }}
@@ -788,7 +834,10 @@ export default function App() {
                 <button
                   key={item.id}
                   type="button"
-                  onClick={() => scrollTo(item.id)}
+                  onClick={() => {
+                    scrollTo(item.id)
+                    setMenuOpen(false)
+                  }}
                   style={{
                     textAlign: 'left',
                     padding: '12px 14px',
@@ -912,6 +961,7 @@ export default function App() {
               </p>
 
               <div
+                className="pp-hero-ctas"
                 style={{
                   display: 'flex',
                   flexWrap: 'wrap',
@@ -933,7 +983,7 @@ export default function App() {
                     fontWeight: 700,
                     fontSize: 15,
                     cursor: 'pointer',
-                    color: theme.cream,
+                    color: '#ffffff',
                     background: `linear-gradient(135deg, ${theme.navy} 0%, ${theme.navyDeep} 100%)`,
                     border: '1px solid rgba(220, 235, 250, 0.2)',
                     boxShadow: '0 12px 32px rgba(26, 47, 74, 0.28)',
@@ -955,7 +1005,7 @@ export default function App() {
                     fontWeight: 700,
                     fontSize: 15,
                     textDecoration: 'none',
-                    color: theme.cream,
+                    color: '#ffffff',
                     background: 'linear-gradient(135deg, #166534 0%, #15803d 100%)',
                     border: '1px solid rgba(220, 235, 250, 0.2)',
                     boxShadow: '0 12px 32px rgba(22, 101, 52, 0.28)',
@@ -1335,6 +1385,7 @@ export default function App() {
                         {st.n}
                       </div>
                       <div
+                        className="pp-process-step-box"
                         style={{
                           padding: '22px 24px',
                           borderRadius: theme.radiusLg,
@@ -1470,7 +1521,7 @@ export default function App() {
           >
             <div style={{ ...sectionWrap, textAlign: 'center', maxWidth: 900 }}>
               <HiOutlineRocketLaunch size={36} style={{ color: theme.gold, marginBottom: 12, animation: 'pp-float 4s ease-in-out infinite' }} aria-hidden />
-              <h2 id="cta-title" style={{ ...h2, color: theme.cream, fontSize: 'clamp(2rem, 4vw, 2.65rem)' }}>
+              <h2 id="cta-title" style={{ ...h2, color: '#ffffff', fontSize: 'clamp(2rem, 4vw, 2.65rem)' }}>
                 Deadlines Don’t Wait — Neither Should You
               </h2>
               <p style={{ margin: '0 auto 10px', maxWidth: 620, fontSize: '1.06rem', color: '#c4bbb0', lineHeight: 1.72 }}>
@@ -1479,7 +1530,7 @@ export default function App() {
               <p style={{ margin: '0 auto 28px', maxWidth: 520, fontSize: '1.04rem', color: '#a8a29e', fontWeight: 600 }}>
                 Let’s turn pressure into progress.
               </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}>
+              <div className="pp-cta-buttons" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}>
                 <a
                   href={WHATSAPP_URL}
                   target="_blank"
@@ -1494,7 +1545,7 @@ export default function App() {
                     fontWeight: 800,
                     fontSize: 15,
                     textDecoration: 'none',
-                    color: theme.cream,
+                    color: '#ffffff',
                     background: 'linear-gradient(135deg, #166534 0%, #15803d 100%)',
                     boxShadow: '0 14px 40px rgba(22, 101, 52, 0.35)',
                   }}
@@ -1514,7 +1565,7 @@ export default function App() {
                     fontWeight: 800,
                     fontSize: 15,
                     cursor: 'pointer',
-                    color: theme.cream,
+                    color: '#ffffff',
                     background: 'rgba(255,252,248,0.08)',
                     border: '1px solid rgba(212,196,176,0.35)',
                   }}
@@ -1568,7 +1619,7 @@ export default function App() {
               <p style={{ ...sub, margin: '0 auto 28px', maxWidth: 520 }}>
                 Share your brief, deadline, and deliverables. We’ll respond with a structured plan, timeline, and quote — no fluff.
               </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 16, marginTop: 22 }}>
+              <div className="pp-contact-links" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 16, marginTop: 22 }}>
                 <a
                   href={`mailto:${EMAIL}`}
                   className="pp-card-hover"
@@ -1755,6 +1806,7 @@ export default function App() {
             </div>
           </div>
           <div
+            className="pp-footer-bottom"
             style={{
               maxWidth: 1160,
               margin: '32px auto 0',
